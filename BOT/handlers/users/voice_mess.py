@@ -1,30 +1,35 @@
-from keyboard.user_main import user_main
+
 from loader import dp, bot
 from states.states import Menus
 from aiogram import types
-from aiogram.dispatcher import FSMContext  # Импорт машины состояний для переключения между стейтами
-from aiogram.dispatcher.filters import Text  # Импорт фильтра - Текст
-from aiogram.types import Message  # Импорт типа - Сообщение
+from aiogram.dispatcher import FSMContext
+from utils.outfunc import voice_chat, openai
 
 
-
-@dp.message_handler(state=Menus.voice)
+@dp.message_handler(state=Menus.voice, content_types=types.ContentType.VOICE)
 async def process_voice(message: types.Message, state: FSMContext):
+    # Сохраняем информацию о голосовом сообщении
+    voice_file_id = message.voice.file_id
 
-    API_TOKEN = '6575862659:AAFowh2C62RngDPLutCQWLpwX-EymgEYEeY'
+    # Загружаем аудиофайл с помощью bot.get_file
+    file = await bot.get_file(voice_file_id)
+    file_path = file.file_path
 
+    # Загружаем содержимое файла в память
+    voice_mess_bytes = await bot.download_file(file_path)
 
-    voice = message.voice
-    file_id = voice.file_id
+    # Задаем путь, куда хотим сохранить файл
+    save_path = "voice/voice.ogg"
 
-    file_info = await bot.get_file(file_id)
-    file_path = file_info.file_path
+    # Открываем файл в режиме записи байтов и записываем в него скачанные данные
+    with open(save_path, "wb") as file:
+        file.write(voice_mess_bytes)
+    save_path = "voice/voice.ogg"
+    # Теперь можно использовать save_path для обращения к этому файлу
+    voice_text = await voice_chat(save_path)
+    result = await openai(voice_text)
 
-    voice_url = f'https://api.telegram.org/file/bot{API_TOKEN}/{file_path}'
+    await message.answer(text="записал")
+    print(result)
 
-    # Сохраняем логин в состояние
-    await state.update_data(voice=voice)
-    await message.answer(text='Записал')
-    # await message.answer(voice_url)
     await state.finish()
-

@@ -3,6 +3,6 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage            # Имп
 
                                                 # Импорт данных из конфига
 
-bot = Bot(token="6575862659:AAFowh2C62RngDPLutCQWLpwX-EymgEYEeY")      # Создание бота
+bot = Bot(token="6215651953:AAHT_4kNGCbn4FYjWvdfuoaIoYED7JH4IgY")      # Создание бота
 storage = MemoryStorage()                                               # Создание экземпляра класса памяти
 dp = Dispatcher(bot, storage=storage)                                   # Создание диспатчера
