@@ -43,13 +43,16 @@ async def show_main_menu(message: Message):
     await message.answer(text="Выбор режима отправки", reply_markup=send)
 
 
+
 @dp.message_handler(Text("Отправить голосовое сообщение"))
 async def show_main_menu(message: Message):
     await message.answer(text="Запиши голосовое")
     await Menus.voice.set()
 
 
+
 @dp.message_handler(Text("Заполнить текстовую форму"))
 async def show_main_menu(message: Message):
     await message.answer(text="Как отправить?", reply_markup=send_mode)
     await Menus.send_mode.set()
+
