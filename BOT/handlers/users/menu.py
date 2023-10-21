@@ -8,6 +8,11 @@ from loader import dp
 from keyboard.authorization import authoriz
 from states.states import Menus
 
+from utils.outfunc import voice_chat, openai
+
+from aiogram.types import Voice
+from aiogram.dispatcher.filters import ContentTypeFilter
+
 
 @dp.message_handler(Command('start'))
 async def show_main_men(message: Message):
@@ -33,13 +38,18 @@ async def show_main_menu(message: Message):
     await message.answer(text="Заказы", reply_markup=order)
 
 
-@dp.message_handler()
-@dp.message_handler(Text("Создание нового"))
+@dp.message_handler(Text("Создание нового заказа"))
 async def show_main_menu(message: Message):
     await message.answer(text="Выбор режима отправки", reply_markup=send)
-    await Menus.send_mode.set()
+
+
+@dp.message_handler(Text("Отправить голосовое сообщение"))
+async def show_main_menu(message: Message):
+    await message.answer(text="Запиши голосовое")
+    await Menus.voice.set()
 
 
 @dp.message_handler(Text("Заполнить текстовую форму"))
 async def show_main_menu(message: Message):
-    await message.answer(text="Выбор режима отправки2", reply_markup=send_mode)
+    await message.answer(text="Как отправить?", reply_markup=send_mode)
+    await Menus.send_mode.set()

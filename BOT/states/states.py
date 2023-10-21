@@ -12,3 +12,4 @@ class Menus(StatesGroup):
     price = State()
     choose_pvz = State()
     payment_methods = State()
+    voice = State()
