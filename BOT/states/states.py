@@ -10,5 +10,5 @@ class Menus(StatesGroup):
     dimensions = State()
     weight = State()
     price = State()
-    choose_pvz = State()
-    payment_methods = State()
+    address = State()
+    payment = State()

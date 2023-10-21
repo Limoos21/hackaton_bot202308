@@ -15,3 +15,11 @@ send = ReplyKeyboardMarkup(keyboard=[
     ]
 ], resize_keyboard=True)
 
+
+pvz = ReplyKeyboardMarkup(keyboard=[
+    [
+        KeyboardButton(text='Выбор ПВЗ'),
+        KeyboardButton(text="Укажу адресс")
+    ]
+], resize_keyboard=True)
+
