@@ -10,11 +10,11 @@ class Menus(StatesGroup):
     dimensions = State()
     weight = State()
     price = State()
-
     choose_pvz = State()
-  
-    
-
     address = State()
+    pvz = State()
     payment = State()
+
     voice = State()
+    active_orders = State()
+    confirm = State()
